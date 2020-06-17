@@ -18,10 +18,9 @@ var secondsLeft = 180;
 var userScore = 0;
 var questionCounter = 0;
 var correctAnswer = "";
-
 var userArray = JSON.parse(localStorage.getItem("userInfo")) || []; 
 
-// DISPLAY VARIABLES ON RUN.
+// DISPLAY VARIABLES ON RUN. WILL BE PLACED IN HTML BY FINAL DRAFT.
 formEl.style.display = "none";
 scoreBoardEl.style.display = "none";
 sideBarBody.style.display = "none";
@@ -58,8 +57,8 @@ startButtonEl.style.display = "none";
 scoreBoardEl.style.display = "none";
 sideBarBody.style.display = "";
 formEl.style.display = "none";
-  startTimer();
-  nextQuestion();
+  startTimer()
+  nextQuestion()
 }
 
 // THIS FUNCTION SHOULD FIRE NEXT QUESTION.
@@ -69,15 +68,25 @@ function nextQuestion() {
   p2El.textContent = questionsArray[questionCounter].choices[1];
   p3El.textContent = questionsArray[questionCounter].choices[2];
   p4El.textContent = questionsArray[questionCounter].choices[3];
-  // correctAnswer = questionsArray[questionCounter].correctAnswer;
+
+  if (questionsArray.choices[questionCounter] === questionsArray[questionCounter].correctAnswer) {
+    this.addEventListener("click", function () {
+      updateScore(5);
+      questionCounter++;
+      nextQuestion;
+    })
+  } else {
+    this.addEventListener("click", function () {
+    this.textContent = "Incorrect."
+    secondsLeft = secondsLeft - 5;
+  })
+}
   // p1El.addEventListener("click", function () {
   //   alert("This is the right answer"); //PLACEHOLDER
   //   updateScore(5)
 
   // });
-  // p2El.addEventListener("click", function () {
-  //   p2El.textContent = "Incorrect."
-  //   secondsLeft = secondsLeft - 5;
+
 
   // });
   // p3El.addEventListener("click", function () {
@@ -90,12 +99,12 @@ function nextQuestion() {
   //   secondsLeft = secondsLeft - 5;
 
   // });
-  questionCounter++;
+  // questionCounter++;
 }
 
 // THIS FUNCTION UPDATES THE SCORE.
 function updateScore(add5) {
-  userScore = userScore += add5;
+  userScore += add5;
   scoreEl.textContent = userScore + " Points";
 
 }
@@ -133,19 +142,28 @@ function finalScreen() {
 }
 // THIS FUNCTION HIDES EVERYTHING.
 function clearScreen() {
-  p1El.removeEventListener("click", function () {});
-  p2El.removeEventListener("click", function () {});
-  p3El.removeEventListener("click", function () {});
-  p4El.removeEventListener("click", function () {});
+  formEl.style.display = "none";
+  startButtonEl.style.display = "none";
+  sideBarBody.style.display = "none";
+  scoreBoardEl.style.display = "none";
+  formEl.style.display="none";
+  
+}
+// THIS FUNCTION RESETS THE GAME TO DEFAULT.
+function reset() {
   h2El.textContent = "";
   p1El.textContent = "";
   p2El.textContent = "";
   p3El.textContent = "";
   p4El.textContent = "";
-  formEl.style.display = "none";
-  startButtonEl.style.display = "none";
-  sideBarBody.style.display = "none";
-  scoreBoardEl.style.display = "none";
+  secondsLeft = 180;
+  userScore = 0;
+  questionCounter = 0;
+  correctAnswer = "";
+  // p1El.removeEventListener("click", function (event) {});
+  // p2El.removeEventListener("click", function (event) {});
+  // p3El.removeEventListener("click", function (event) {});
+  // p4El.removeEventListener("click", function (event) {});
 }
 
 // var lastUser = JSON.parse(localStorage.getItem("user"));
@@ -157,10 +175,10 @@ function clearScreen() {
 function scoreBoardScreen() {
   scoreBoardEl.style.display = "";
   // for (let i = 0; i <= userNameArray.length; i++) {
-    var trEl = document.createElement("tr");
-    var thEl = document.createElement("th");
-    var td1El = document.createElement("td");
-    var td2El = document.createElement("td");
+    trEl = document.createElement("tr");
+    thEl = document.createElement("th");
+    td1El = document.createElement("td");
+    td2El = document.createElement("td");
     // thEl.textContent = i;
     td1El.textContent = lastUser.Username;
     td2El.textContent = lastUser.Score;
