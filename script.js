@@ -17,9 +17,9 @@ var scoreBoardEl = document.getElementById("scoreBoard")
 var secondsLeft = 180;
 var userScore = 0;
 var questionCounter = 0;
-var userNameArray = ["Joe", "Denis"];
-var scoreArray = [300, 480];
 var correctAnswer = "";
+
+var userArray = JSON.parse(localStorage.getItem("userInfo")) || []; 
 
 // DISPLAY VARIABLES ON RUN.
 formEl.style.display = "none";
@@ -69,27 +69,27 @@ function nextQuestion() {
   p2El.textContent = questionsArray[questionCounter].choices[1];
   p3El.textContent = questionsArray[questionCounter].choices[2];
   p4El.textContent = questionsArray[questionCounter].choices[3];
-  correctAnswer = questionsArray[questionCounter].correctAnswer;
-  p1El.addEventListener("click", function () {
-    alert("This is the right answer"); //PLACEHOLDER
-    updateScore(5)
+  // correctAnswer = questionsArray[questionCounter].correctAnswer;
+  // p1El.addEventListener("click", function () {
+  //   alert("This is the right answer"); //PLACEHOLDER
+  //   updateScore(5)
 
-  });
-  p2El.addEventListener("click", function () {
-    p2El.textContent = "Incorrect."
-    secondsLeft = secondsLeft - 5;
+  // });
+  // p2El.addEventListener("click", function () {
+  //   p2El.textContent = "Incorrect."
+  //   secondsLeft = secondsLeft - 5;
 
-  });
-  p3El.addEventListener("click", function () {
-    p3El.textContent = "Incorrect."
-    secondsLeft = secondsLeft - 5;
+  // });
+  // p3El.addEventListener("click", function () {
+  //   p3El.textContent = "Incorrect."
+  //   secondsLeft = secondsLeft - 5;
 
-  });
-  p4El.addEventListener("click", function () {
-    p4El.textContent = "Incorrect."
-    secondsLeft = secondsLeft - 5;
+  // });
+  // p4El.addEventListener("click", function () {
+  //   p4El.textContent = "Incorrect."
+  //   secondsLeft = secondsLeft - 5;
 
-  });
+  // });
   questionCounter++;
 }
 
@@ -133,10 +133,10 @@ function finalScreen() {
 }
 // THIS FUNCTION HIDES EVERYTHING.
 function clearScreen() {
-  p1El.removeEventListener("click", function () { });
-  p2El.removeEventListener("click", function () { });
-  p3El.removeEventListener("click", function () { });
-  p4El.removeEventListener("click", function () { });
+  p1El.removeEventListener("click", function () {});
+  p2El.removeEventListener("click", function () {});
+  p3El.removeEventListener("click", function () {});
+  p4El.removeEventListener("click", function () {});
   h2El.textContent = "";
   p1El.textContent = "";
   p2El.textContent = "";
@@ -148,9 +148,12 @@ function clearScreen() {
   scoreBoardEl.style.display = "none";
 }
 
-var lastUser = JSON.parse(localStorage.getItem("user"));
+// var lastUser = JSON.parse(localStorage.getItem("user"));
 
 // THIS IS THE SCOREBOARD SCREEN. THIS NEEDS A LOT OF WORK.
+// 
+// Segment into Divs
+// 
 function scoreBoardScreen() {
   scoreBoardEl.style.display = "";
   // for (let i = 0; i <= userNameArray.length; i++) {
@@ -165,4 +168,24 @@ function scoreBoardScreen() {
   // }
 }
 
-
+// EVENT LISTENERS ADD
+p1El.addEventListener("click", function (event) {
+  // alert("This is the right answer"); //PLACEHOLDER
+  updateScore(5)
+  console.log(event.target)
+});
+p2El.addEventListener("click", function (event) {
+  p2El.textContent = "Incorrect."
+  secondsLeft = secondsLeft - 5;
+  console.log(event.target)
+});
+p3El.addEventListener("click", function (event) {
+  p3El.textContent = "Incorrect."
+  secondsLeft = secondsLeft - 5;
+  console.log(event.target)
+});
+p4El.addEventListener("click", function (event) {
+  p4El.textContent = "Incorrect."
+  secondsLeft = secondsLeft - 5;
+  console.log(event.target)
+});
