@@ -40,3 +40,19 @@ You are required to submit the following for review:
 
 - - -
 © 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
+
+
+Coding Quiz! 
+
+
+1. Build a decent looking website. All this can be done last.
+    -Barebones, but with classes so that javascript can inject most of the elements.
+    -Set up the CSS. Honestly? Going with basic af.
+
+2. Create a Timer.
+
+3. Make a bunch of questions.
+
+4. Create a bunch of answers.
+
+5. Have the questions display on screen.
