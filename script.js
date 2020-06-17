@@ -1,19 +1,18 @@
-// Global variables
+// GLOBAL VARIABLES
 var quizBody = document.getElementById("quizBody")
 var h2El = document.getElementById("h2")
 var p1El = document.getElementById("p1")
 var p2El = document.getElementById("p2")
 var p3El = document.getElementById("p3")
 var p4El = document.getElementById("p4")
-var timerEl=document.getElementById("timer")
+var timerEl = document.getElementById("timeLeft")
+var scoreEl = document.getElementById("currentScore")
 var startButtonEl = document.getElementById("startQuizButton")
 
-var secondsLeft=300;
+var secondsLeft = 180;
 
-startButtonEl.addEventListener("click",function() {
-  
-  
-  h2El.textContent = "First Question";
+startButtonEl.addEventListener("click", function () {
+  h2El.textContent = "First Question:";
   p1El.textContent = "This is the right answer.";
   p2El.textContent = "This is the wrong answer.";
   p3El.textContent = "This is the wrong answer.";
@@ -23,15 +22,20 @@ startButtonEl.addEventListener("click",function() {
   quizBody.appendChild(p2El);
   quizBody.appendChild(p3El);
   quizBody.appendChild(p4El);
-  startButtonEl.style.display="none"
+  startButtonEl.style.display = "none"
 })
-  
 
 
-
-
-
-
+// This function clears the questions away.
+function clearScreen() {
+  h2El.style.display = "none"
+  p1El.style.display = "none"
+  p2El.style.display = "none"
+  p3El.style.display = "none"
+  p4El.style.display = "none"
+  startButtonEl.style.display = ""
+  return
+}
 // Need some Query Selectors here
 // function runQuestions() {
 //     var questions = [{
@@ -60,59 +64,19 @@ startButtonEl.addEventListener("click",function() {
 //     var userSelection = [];
 
 
-// --------------------------------------------------------------------------------------------------------------------
-//create button on html page
-//grab button inside query selector in java
-//even listener when user clicks
-//when click, go to question
 
-//can put questions into html or javascript, java is dom manipulation
-//one question, some options to said question
-//user click option, is correct or incorrect, compare user choice to correct answer
-//for loop over questions to ask multiple questions, can use array
+// COUNTDOWN TIMER CODE
 
-//array for questions
+function setTime() {
+  var timerInterval = setInterval(function () {
+    secondsLeft--;
+    timerEl.textContent = secondsLeft + " seconds";
 
-//array for answers             
+    if (secondsLeft === 0) {
+      clearInterval(timerInterval);
+      clearScreen();
+    }
 
-//keep track of indices for arrays for comparison, how to compare arrays????
-
-//array for correct answer
-//all arrays stored within an object
-
-//timer outside of for loop, so that timer isn't restarting with the loop, same goes for eventlisteners
-//create function for timer, run function when user starts quiz
-//if user answers incorrectly, deduct time. if/else?
-
-
-
-// Timer stuff
-    // var timeEl = document.querySelector(".time");
-    // var mainEl = document.getElementById("main");
-
-    // var secondsLeft = 10;
-
-    // function setTime() {
-    //   var timerInterval = setInterval(function() {
-    //     secondsLeft--;
-    //     timeEl.textContent = secondsLeft + " seconds left till colorsplosion.";
-
-    //     if(secondsLeft === 0) {
-    //       clearInterval(timerInterval);
-    //       sendMessage();
-    //     }
-
-    //   }, 1000);
-    // }
-
-    // function sendMessage() {
-    //   timeEl.textContent = " ";
-
-    //   var imgEl = document.createElement("img");
-
-    //   imgEl.setAttribute("src", "images/image_1.jpg");
-    //   mainEl.appendChild(imgEl);
-
-    // }
-
-    // setTime();
+  }, 1000);
+}
+setTime();
