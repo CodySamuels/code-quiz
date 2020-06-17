@@ -19,6 +19,7 @@ var userScore = 0;
 var questionCounter = 0;
 var userNameArray = ["Joe", "Denis"];
 var scoreArray = [300, 480];
+var correctAnswer = "";
 
 // DISPLAY VARIABLES ON RUN.
 formEl.style.display = "none";
@@ -27,9 +28,9 @@ sideBarBody.style.display = "none";
 
 // AN ARRAY WITH AN OBJECTS IN IT. FOR EASILY DETERMINING CORRECTNESS.
 var questionsArray = [{
-  question: "What is 2+2?",
-  choices: [4, 2, 6, 8, 10],
-  correctAnswer: 0
+  question: "What is 2+2?", //PLACEHOLDER QUESTION
+  choices: [4, 2, 6, 8, 10], //PLACEHOLDER ANSWERS
+  correctAnswer: 0          //PLACEHOLDER CORRECT
 }, {
   question: "What is 2+3?",
   choices: [2, 5, 6, 8, 10],
@@ -53,32 +54,43 @@ startButtonEl.addEventListener("click", runQuiz)
 
 // THIS FUNCTION STARTS THE QUIZ.
 function runQuiz() {
+startButtonEl.style.display = "none";
+scoreBoardEl.style.display = "none";
+sideBarBody.style.display = "";
+formEl.style.display = "none";
   startTimer();
-  startButtonEl.style.display = "none";
-  scoreBoardEl.style.display = "none";
-  sideBarBody.style.display = "";
-  formEl.style.display = "none";
-  h2El.textContent = questionsArray[0].question;
-  p1El.textContent = questionsArray[0].choices[0];
-  p2El.textContent = questionsArray[0].choices[1];
-  p3El.textContent = questionsArray[0].choices[2];
-  p4El.textContent = questionsArray[0].choices[3];
+  nextQuestion();
+}
+
+// THIS FUNCTION SHOULD FIRE NEXT QUESTION.
+function nextQuestion() {
+  h2El.textContent = questionsArray[questionCounter].question;
+  p1El.textContent = questionsArray[questionCounter].choices[0];
+  p2El.textContent = questionsArray[questionCounter].choices[1];
+  p3El.textContent = questionsArray[questionCounter].choices[2];
+  p4El.textContent = questionsArray[questionCounter].choices[3];
+  correctAnswer = questionsArray[questionCounter].correctAnswer;
   p1El.addEventListener("click", function () {
     alert("This is the right answer"); //PLACEHOLDER
     updateScore(5)
+
   });
   p2El.addEventListener("click", function () {
     p2El.textContent = "Incorrect."
     secondsLeft = secondsLeft - 5;
+
   });
   p3El.addEventListener("click", function () {
     p3El.textContent = "Incorrect."
     secondsLeft = secondsLeft - 5;
+
   });
   p4El.addEventListener("click", function () {
     p4El.textContent = "Incorrect."
     secondsLeft = secondsLeft - 5;
+
   });
+  questionCounter++;
 }
 
 // THIS FUNCTION UPDATES THE SCORE.
