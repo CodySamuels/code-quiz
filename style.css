@@ -1,4 +1,8 @@
-body {
+.banner {
  background-color: dodgerblue;
  color: white;
+}
+
+h2 {
+    font-size: 2rem;
 }

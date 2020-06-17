@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <container class="d-flex justify-content-center bg-white text-dark p-2">
+    <container class="container-fluid d-flex justify-content-center banner">
         <div class="row">
             <div class="col-sm">
                 <h1>Pop Quiz!</h1>
@@ -20,7 +20,7 @@
     </container>
     <br>
     <br>
-    <container class="p-2 m-2">
+    <container class="container-fluid">
         <div class="row">
             <div class="col-sm-2">
                 <p>
@@ -28,7 +28,7 @@
                 </p>
             </div>
 
-            <div class="col-sm-8 bg-white text-dark rounded p-3 m-3" id="quizBody">
+            <div class="col-sm-8 rounded" id="quizBody">
                 <h2 class="pb-2" id="h2">
                     The Rules
                 </h2>
@@ -55,10 +55,12 @@
 
             </div>
 
-            <div class="col-sm-2">
-                <p>
-                    
+            <div class="col-sm-2 rounded">
+                <h2>Time Left:</h2>
+                <p id="timer">
+                    300 Seconds.
                 </p>
+
             </div>
         </div>
     </container>

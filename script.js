@@ -5,20 +5,27 @@ var p1El = document.getElementById("p1")
 var p2El = document.getElementById("p2")
 var p3El = document.getElementById("p3")
 var p4El = document.getElementById("p4")
+var timerEl=document.getElementById("timer")
 var startButtonEl = document.getElementById("startQuizButton")
 
-h2El.textContent = "First Question";
-p1El.textContent = "This is the right answer.";
-p2El.textContent = "This is the wrong answer.";
-p3El.textContent = "This is the wrong answer.";
-p4El.textContent = "This is the wrong answer.";
-quizBody.appendChild(h2El);
-quizBody.appendChild(p1El);
-quizBody.appendChild(p2El);
-quizBody.appendChild(p3El);
-quizBody.appendChild(p4El);
-startButtonEl.style.display="none"
+var secondsLeft=300;
 
+startButtonEl.addEventListener("click",function() {
+  
+  
+  h2El.textContent = "First Question";
+  p1El.textContent = "This is the right answer.";
+  p2El.textContent = "This is the wrong answer.";
+  p3El.textContent = "This is the wrong answer.";
+  p4El.textContent = "This is the wrong answer.";
+  quizBody.appendChild(h2El);
+  quizBody.appendChild(p1El);
+  quizBody.appendChild(p2El);
+  quizBody.appendChild(p3El);
+  quizBody.appendChild(p4El);
+  startButtonEl.style.display="none"
+})
+  
 
 
 
