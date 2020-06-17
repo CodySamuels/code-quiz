@@ -28,24 +28,24 @@ sideBarBody.style.display = "none";
 // AN ARRAY WITH AN OBJECTS IN IT. FOR EASILY DETERMINING CORRECTNESS.
 var questionsArray = [{
   question: "What is 2+2?", //PLACEHOLDER QUESTION
-  choices: [4, 2, 6, 8, 10], //PLACEHOLDER ANSWERS
-  correctAnswer: 0          //PLACEHOLDER CORRECT
+  choices: ["4", "2", "6", "8",], //PLACEHOLDER ANSWERS
+  correctAnswer: "4"          //PLACEHOLDER CORRECT
 }, {
   question: "What is 2+3?",
-  choices: [2, 5, 6, 8, 10],
-  correctAnswer: 1
+  choices: ["2", "5", "6", "8",],
+  correctAnswer: "5"
 }, {
   question: "What is 2+4?",
-  choices: [2, 4, 6, 8, 10],
-  correctAnswer: 2
+  choices: ["2", "4", "6", "8",],
+  correctAnswer: "6"
 }, {
   question: "What is 2+5?",
-  choices: [2, 4, 6, 7, 10],
-  correctAnswer: 3
+  choices: ["2", "4", "6", "7",],
+  correctAnswer: "7"
 }, {
   question: "What is 2+6?",
-  choices: [2, 4, 6, 10, 8],
-  correctAnswer: 4
+  choices: ["2", "4", "6", "8",],
+  correctAnswer: "8"
 }];
 
 // THIS FIRES RUNQUIZ AT THE MOMENT.
@@ -69,18 +69,18 @@ function nextQuestion() {
   p3El.textContent = questionsArray[questionCounter].choices[2];
   p4El.textContent = questionsArray[questionCounter].choices[3];
 
-  if (questionsArray.choices[questionCounter] === questionsArray[questionCounter].correctAnswer) {
-    this.addEventListener("click", function () {
-      updateScore(5);
-      questionCounter++;
-      nextQuestion;
-    })
-  } else {
-    this.addEventListener("click", function () {
-    this.textContent = "Incorrect."
-    secondsLeft = secondsLeft - 5;
-  })
-}
+  // if (questionsArray.choices[questionCounter] === questionsArray[questionCounter].correctAnswer) {
+  //   this.addEventListener("click", function () {
+  //     updateScore(5);
+  //     questionCounter++;
+  //     nextQuestion();
+  //   })
+  // } else {
+  //   this.addEventListener("click", function () {
+  //   this.textContent = "Incorrect."
+  //   secondsLeft = secondsLeft - 5;
+  // })
+// }
   // p1El.addEventListener("click", function () {
   //   alert("This is the right answer"); //PLACEHOLDER
   //   updateScore(5)
@@ -106,7 +106,14 @@ function nextQuestion() {
 function updateScore(add5) {
   userScore += add5;
   scoreEl.textContent = userScore + " Points";
-
+  console.log(questionCounter);
+  console.log(questionsArray.length);
+  if (questionCounter >= questionsArray.length -1) {
+    finalScreen();
+  } else {
+  questionCounter++;
+  nextQuestion();
+  }
 }
 
 // COUNTDOWN TIMER CODE.
@@ -125,6 +132,7 @@ function startTimer() {
 
 // THIS FUNCTION IS FOR THE GAMEOVER SCREEN.
 function finalScreen() {
+  // var userArray = JSON.parse(localStorage.getItem("userInfo")) || []; 
   formEl.style.display = "";
   h2El.textContent = "Finished!"
   p1El.textContent = ""
@@ -137,7 +145,9 @@ function finalScreen() {
       Username: inputEl.value.trim(),
       Score: userScore
     }
-    localStorage.setItem("user", JSON.stringify(userInfo));
+    userArray.push(userInfo)
+
+    localStorage.setItem("user", JSON.stringify(userArray));
   });
 }
 // THIS FUNCTION HIDES EVERYTHING.
@@ -188,22 +198,68 @@ function scoreBoardScreen() {
 
 // EVENT LISTENERS ADD
 p1El.addEventListener("click", function (event) {
-  // alert("This is the right answer"); //PLACEHOLDER
-  updateScore(5)
-  console.log(event.target)
+  console.log("event.target", event.target.textContent);
+  console.log("correctAnswer", questionsArray[questionCounter].correctAnswer)
+  if (event.target.textContent === questionsArray[questionCounter].correctAnswer) {
+    updateScore(5);
+  } else {
+    p1El.textContent = "Incorrect."
+  }
+
+  // updateScore(5)
+  // console.log(event.target.textContent)
 });
+
 p2El.addEventListener("click", function (event) {
-  p2El.textContent = "Incorrect."
-  secondsLeft = secondsLeft - 5;
-  console.log(event.target)
+  // alert("This is the right answer"); //PLACEHOLDER
+  if (event.target.textContent === questionsArray[questionCounter].correctAnswer) {
+    updateScore(5);
+  } else {
+    p2El.textContent = "Incorrect."
+  }
 });
+
 p3El.addEventListener("click", function (event) {
-  p3El.textContent = "Incorrect."
-  secondsLeft = secondsLeft - 5;
-  console.log(event.target)
+  // alert("This is the right answer"); //PLACEHOLDER
+  if (event.target.textContent === questionsArray[questionCounter].correctAnswer) {
+    updateScore(5);
+  } else {
+    p3El.textContent = "Incorrect."
+  }
 });
+
 p4El.addEventListener("click", function (event) {
-  p4El.textContent = "Incorrect."
-  secondsLeft = secondsLeft - 5;
-  console.log(event.target)
+  // alert("This is the right answer"); //PLACEHOLDER
+  if (event.target.textContent === questionsArray[questionCounter].correctAnswer) {
+    updateScore(5);
+  } else {
+    p4El.textContent = "Incorrect."
+  }
 });
+// p2El.addEventListener("click", function (event) {
+//   p2El.textContent = "Incorrect."
+//   secondsLeft = secondsLeft - 5;
+//   console.log(event.target)
+// });
+// p3El.addEventListener("click", function (event) {
+//   p3El.textContent = "Incorrect."
+//   secondsLeft = secondsLeft - 5;
+//   console.log(event.target)
+// });
+// p4El.addEventListener("click", function (event) {
+//   p4El.textContent = "Incorrect."
+//   secondsLeft = secondsLeft - 5;
+//   console.log(event.target)
+// });
+
+// if (questionsArray.choices[questionCounter] === questionsArray[questionCounter].correctAnswer) {
+//   this.addEventListener("click", function () {
+//     updateScore(5);
+//     questionCounter++;
+//     nextQuestion();
+//   })
+// } else {
+//   this.addEventListener("click", function () {
+//   this.textContent = "Incorrect."
+//   secondsLeft = secondsLeft - 5;
+// })
