@@ -17,77 +17,67 @@ var scoreBoardEl = document.getElementById("scoreBoard")
 var secondsLeft = 180;
 var userScore = 0;
 var questionCounter = 0;
-userNameArray = ["Joe", "Steve"];
-scoreArray = [300, 480];
+var userNameArray = ["Joe", "Denis"];
+var scoreArray = [300, 480];
 
 // DISPLAY VARIABLES ON RUN.
 formEl.style.display = "none";
 scoreBoardEl.style.display = "none";
 sideBarBody.style.display = "none";
 
-// AN ARRAY WITH AN OBJECT IN IT. FOR EASILY DETERMINING CORRECTNESS.
-// var questions = [{
-//   question: "What is 2*5?",
-//   choices: [2, 5, 10, 15, 20],
-//   correctAnswer: 2
-// }, {
-//   question: "What is 3*6?",
-//   choices: [3, 6, 9, 12, 18],
-//   correctAnswer: 4
-// }, {
-//   question: "What is 8*9?",
-//   choices: [72, 99, 108, 134, 156],
-//   correctAnswer: 0
-// }, {
-//   question: "What is 1*7?",
-//   choices: [4, 5, 6, 7, 8],
-//   correctAnswer: 3
-// }, {
-//   question: "What is 8*8?",
-//   choices: [20, 30, 40, 50, 64],
-//   correctAnswer: 4
-// }];
+// AN ARRAY WITH AN OBJECTS IN IT. FOR EASILY DETERMINING CORRECTNESS.
+var questionsArray = [{
+  question: "What is 2+2?",
+  choices: [4, 2, 6, 8, 10],
+  correctAnswer: 0
+}, {
+  question: "What is 2+3?",
+  choices: [2, 5, 6, 8, 10],
+  correctAnswer: 1
+}, {
+  question: "What is 2+4?",
+  choices: [2, 4, 6, 8, 10],
+  correctAnswer: 2
+}, {
+  question: "What is 2+5?",
+  choices: [2, 4, 6, 7, 10],
+  correctAnswer: 3
+}, {
+  question: "What is 2+6?",
+  choices: [2, 4, 6, 10, 8],
+  correctAnswer: 4
+}];
 
-// THIS REDUCES IT DOWN TO A SINGLE ARRAY. TESTING.
-// var getQuestions = questions.map(function(item) {
-// return item['question']
-// })
-
-// THIS FIRES RUNQUIZ AT THE MOMENT
+// THIS FIRES RUNQUIZ AT THE MOMENT.
 startButtonEl.addEventListener("click", runQuiz)
 
-// THIS FUNCTION STARTS THE QUIZ
+// THIS FUNCTION STARTS THE QUIZ.
 function runQuiz() {
   startTimer();
   startButtonEl.style.display = "none";
-  sideBarBody.style.display = "block";
+  scoreBoardEl.style.display = "none";
+  sideBarBody.style.display = "";
   formEl.style.display = "none";
-  h2El.textContent = "First Question: " //+ getQuestions[1];
-  p1El.textContent = "This is the right answer.";
-  p2El.textContent = "This is the wrong answer.";
-  p3El.textContent = "This is the wrong answer.";
-  p4El.textContent = "This is the wrong answer.";
-  quizBody.prepend(h2El, p1El, p2El, p3El, p4El);
-
+  h2El.textContent = "First Question: " + questionsArray[0].question;
+  p1El.textContent = questionsArray[0].choices[0];
+  p2El.textContent = questionsArray[0].choices[1];
+  p3El.textContent = questionsArray[0].choices[2];
+  p4El.textContent = questionsArray[0].choices[3];
   p1El.addEventListener("click", function () {
     alert("This is the right answer"); //PLACEHOLDER
     updateScore(5)
-    return
   });
   p2El.addEventListener("click", function () {
     p2El.textContent = "Incorrect."
     secondsLeft = secondsLeft - 5;
-    return
   });
   p3El.addEventListener("click", function () {
     p3El.textContent = "Incorrect."
     secondsLeft = secondsLeft - 5;
-    return
   });
   p4El.addEventListener("click", function () {
     p4El.textContent = "Incorrect."
     secondsLeft = secondsLeft - 5;
-    return
   });
 }
 
@@ -95,7 +85,7 @@ function runQuiz() {
 function updateScore(add5) {
   userScore = userScore += add5;
   scoreEl.textContent = userScore + " Points";
-  return
+
 }
 
 // COUNTDOWN TIMER CODE.
@@ -106,27 +96,27 @@ function startTimer() {
 
     if (secondsLeft <= 0) {
       clearInterval(timerInterval);
-      scoreScreen();
+      finalScreen();
     }
 
   }, 1000);
-  return
 }
 
 // THIS FUNCTION IS FOR THE GAMEOVER SCREEN.
-function scoreScreen() {
+function finalScreen() {
+  formEl.style.display = "";
   h2El.textContent = "Finished!"
   p1El.textContent = ""
   p2El.textContent = ""
   p3El.textContent = ""
   p4El.textContent = "Enter your username below."
-  formEl.style.display = "block";
   formEl.addEventListener("submit", function (event) {
     event.preventDefault();
-    var userName = inputEl.value;
-    var userName = JSON.stringify(userName);
-    window.localStorage.setItem(userName, userScore);
-    return
+    var userInfo = {
+      Username: inputEl.value.trim(),
+      Score: userScore
+    }
+    localStorage.setItem('user", JSON.stringify(userInfo));
   });
 }
 // THIS FUNCTION HIDES EVERYTHING.
@@ -144,24 +134,23 @@ function clearScreen() {
   startButtonEl.style.display = "none";
   sideBarBody.style.display = "none";
   scoreBoardEl.style.display = "none";
-  return
 }
 
-// THIS IS THE SCOREBOARD SCREEN
+var lastUser = JSON.parse(localStorage.getItem("user"));
+
+// THIS IS THE SCOREBOARD SCREEN. THIS NEEDS A LOT OF WORK.
 function scoreBoardScreen() {
-  // Now i
-  // 
   scoreBoardEl.style.display = "";
-  for (let i = 0; i < userNameArray.length; i++) {
+  // for (let i = 0; i <= userNameArray.length; i++) {
     var trEl = document.createElement("tr");
     var thEl = document.createElement("th");
     var td1El = document.createElement("td");
     var td2El = document.createElement("td");
-    thEl.textContent = i+1;
-    td1El.textContent = userNameArray[i];
-    td2El.textContent = scoreArray[i];
+    // thEl.textContent = i;
+    td1El.textContent = lastUser.Username;
+    td2El.textContent = lastUser.Score;
     scoreBoardEl.append(trEl, thEl, td1El, td2El);
-  }
+  // }
 }
 
 
