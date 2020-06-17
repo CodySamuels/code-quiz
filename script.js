@@ -18,27 +18,32 @@ var questionCounter = 0;
 formEl.style.display = "none";
 
 // AN ARRAY WITH AN OBJECT IN IT. FOR EASILY DETERMINING CORRECTNESS.
-var questions = [{
-  question: "What is 2*5?",
-  choices: [2, 5, 10, 15, 20],
-  correctAnswer: 2
-}, {
-  question: "What is 3*6?",
-  choices: [3, 6, 9, 12, 18],
-  correctAnswer: 4
-}, {
-  question: "What is 8*9?",
-  choices: [72, 99, 108, 134, 156],
-  correctAnswer: 0
-}, {
-  question: "What is 1*7?",
-  choices: [4, 5, 6, 7, 8],
-  correctAnswer: 3
-}, {
-  question: "What is 8*8?",
-  choices: [20, 30, 40, 50, 64],
-  correctAnswer: 4
-}];
+// var questions = [{
+//   question: "What is 2*5?",
+//   choices: [2, 5, 10, 15, 20],
+//   correctAnswer: 2
+// }, {
+//   question: "What is 3*6?",
+//   choices: [3, 6, 9, 12, 18],
+//   correctAnswer: 4
+// }, {
+//   question: "What is 8*9?",
+//   choices: [72, 99, 108, 134, 156],
+//   correctAnswer: 0
+// }, {
+//   question: "What is 1*7?",
+//   choices: [4, 5, 6, 7, 8],
+//   correctAnswer: 3
+// }, {
+//   question: "What is 8*8?",
+//   choices: [20, 30, 40, 50, 64],
+//   correctAnswer: 4
+// }];
+
+// THIS REDUCES IT DOWN TO A SINGLE ARRAY. TESTING.
+// var getQuestions = questions.map(function(item) {
+// return item['question']
+// })
 
 // THIS FIRES RUNQUIZ AT THE MOMENT
 startButtonEl.addEventListener("click", runQuiz)
@@ -48,7 +53,7 @@ function runQuiz() {
   startTimer();
   startButtonEl.style.display = "none";
   formEl.style.display = "none";
-  h2El.textContent = "First Question: " + getQuestions[1];
+  h2El.textContent = "First Question: " //+ getQuestions[1];
   p1El.textContent = "This is the right answer.";
   p2El.textContent = "This is the wrong answer.";
   p3El.textContent = "This is the wrong answer.";
@@ -59,7 +64,6 @@ function runQuiz() {
     alert("This is the right answer"); //PLACEHOLDER
     updateScore(5)
     console.log(userScore)
-    return userScore
   });
   p2El.addEventListener("click", function () {
     alert("This is the wrong answer"); //PLACEHOLDER
@@ -78,11 +82,6 @@ function runQuiz() {
   });
   return
 }
-
-// THIS REDUCES IT DOWN TO A SINGLE ARRAY. TESTING.
-var getQuestions = questions.map(function(item) {
-return item['question']
-})
 
 // THIS FUNCTION UPDATES THE SCORE.
 function updateScore(add5) {
