@@ -40,19 +40,33 @@
 
                 <p id="p3"></p>
 
-                <p id="p4">Enter your Username below to start</p>
+                <p id="p4"></p>
 
                 <form id="userForm">
-                    <input placeholder="username" id="inputForm">
+                    <input placeholder="Username" id="inputForm">
                 </form>
 
                 <button type="button" class="btn btn-primary" id="startQuizButton">
                     <span>Start</span>
                 </button>
+                
+                <table class="table" id="scoreBoard">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Score</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                    </tbody>
+                  </table>
 
             </div>
 
-            <div class="col-sm-2">
+            <div class="col-sm-2" id="sideBarBody">
                 <h2>Time Left:</h2>
                 <p id="timeLeft">
                     180 Seconds
@@ -61,7 +75,6 @@
                 <p id="currentScore">
                     0 Points
                 </p>
-
             </div>
         </div>
     </container>

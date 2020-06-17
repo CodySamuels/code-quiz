@@ -1,5 +1,6 @@
-// GLOBAL VARIABLES FOR DOM MANIPULATION
+// GLOBAL VARIABLES FOR DOM MANIPULATION.
 var quizBody = document.getElementById("quizBody")
+var sideBarBody = document.getElementById("sideBarBody")
 var h2El = document.getElementById("h2")
 var p1El = document.getElementById("p1")
 var p2El = document.getElementById("p2")
@@ -10,12 +11,19 @@ var scoreEl = document.getElementById("currentScore")
 var startButtonEl = document.getElementById("startQuizButton")
 var formEl = document.getElementById("userForm")
 var inputEl = document.getElementById("inputForm")
+var scoreBoardEl = document.getElementById("scoreBoard")
 
-// GLOBAL VARIABLES FOR SETTINGS
+// GLOBAL VARIABLES FOR SETTINGS.
 var secondsLeft = 180;
 var userScore = 0;
 var questionCounter = 0;
+userNameArray = ["Joe", "Steve"];
+scoreArray = [300, 480];
+
+// DISPLAY VARIABLES ON RUN.
 formEl.style.display = "none";
+scoreBoardEl.style.display = "none";
+sideBarBody.style.display = "none";
 
 // AN ARRAY WITH AN OBJECT IN IT. FOR EASILY DETERMINING CORRECTNESS.
 // var questions = [{
@@ -52,73 +60,108 @@ startButtonEl.addEventListener("click", runQuiz)
 function runQuiz() {
   startTimer();
   startButtonEl.style.display = "none";
+  sideBarBody.style.display = "block";
   formEl.style.display = "none";
   h2El.textContent = "First Question: " //+ getQuestions[1];
   p1El.textContent = "This is the right answer.";
   p2El.textContent = "This is the wrong answer.";
   p3El.textContent = "This is the wrong answer.";
   p4El.textContent = "This is the wrong answer.";
-  quizBody.prepend(h2El,p1El,p2El, p3El, p4El);
+  quizBody.prepend(h2El, p1El, p2El, p3El, p4El);
 
   p1El.addEventListener("click", function () {
     alert("This is the right answer"); //PLACEHOLDER
     updateScore(5)
-    console.log(userScore)
+    return
   });
   p2El.addEventListener("click", function () {
-    alert("This is the wrong answer"); //PLACEHOLDER
+    p2El.textContent = "Incorrect."
     secondsLeft = secondsLeft - 5;
-    console.log(secondsLeft)
+    return
   });
   p3El.addEventListener("click", function () {
-    alert("This is the wrong answer"); //PLACEHOLDER
+    p3El.textContent = "Incorrect."
     secondsLeft = secondsLeft - 5;
-    console.log(secondsLeft)
+    return
   });
   p4El.addEventListener("click", function () {
-    alert("This is the wrong answer"); //PLACEHOLDER
+    p4El.textContent = "Incorrect."
     secondsLeft = secondsLeft - 5;
-    console.log(secondsLeft)
+    return
   });
-  return
 }
 
 // THIS FUNCTION UPDATES THE SCORE.
 function updateScore(add5) {
   userScore = userScore += add5;
   scoreEl.textContent = userScore + " Points";
+  return
 }
 
-// COUNTDOWN TIMER CODE
+// COUNTDOWN TIMER CODE.
 function startTimer() {
   var timerInterval = setInterval(function () {
     secondsLeft--;
     timerEl.textContent = secondsLeft + " Seconds";
-    
-    if (secondsLeft === 0) {
+
+    if (secondsLeft <= 0) {
       clearInterval(timerInterval);
-      clearScreen();
+      scoreScreen();
     }
-    
+
   }, 1000);
+  return
 }
 
-// THIS FUNCTION HIDES CODE. NEEDS REPURPOSING TO ENDING SCREEN.
-function clearScreen() {
+// THIS FUNCTION IS FOR THE GAMEOVER SCREEN.
+function scoreScreen() {
   h2El.textContent = "Finished!"
   p1El.textContent = ""
   p2El.textContent = ""
   p3El.textContent = ""
-  p4El.textContent = "Enter your username below"
-  quizBody.prepend(h2El,p1El,p2El, p3El, p4El);
+  p4El.textContent = "Enter your username below."
   formEl.style.display = "block";
-  formEl.addEventListener("submit", function(event) {
+  formEl.addEventListener("submit", function (event) {
     event.preventDefault();
     var userName = inputEl.value;
     var userName = JSON.stringify(userName);
-    window.localStorage.setItem('name', userName);
-    var userScore = JSON.stringify(userScore);
-    window.localStorage.setItem('score', userScore)
+    window.localStorage.setItem(userName, userScore);
+    return
   });
 }
+// THIS FUNCTION HIDES EVERYTHING.
+function clearScreen() {
+  p1El.removeEventListener("click", function () { });
+  p2El.removeEventListener("click", function () { });
+  p3El.removeEventListener("click", function () { });
+  p4El.removeEventListener("click", function () { });
+  h2El.textContent = "";
+  p1El.textContent = "";
+  p2El.textContent = "";
+  p3El.textContent = "";
+  p4El.textContent = "";
+  formEl.style.display = "none";
+  startButtonEl.style.display = "none";
+  sideBarBody.style.display = "none";
+  scoreBoardEl.style.display = "none";
+  return
+}
+
+// THIS IS THE SCOREBOARD SCREEN
+function scoreBoardScreen() {
+  // Now i
+  // 
+  scoreBoardEl.style.display = "";
+  for (let i = 0; i < userNameArray.length; i++) {
+    var trEl = document.createElement("tr");
+    var thEl = document.createElement("th");
+    var td1El = document.createElement("td");
+    var td2El = document.createElement("td");
+    thEl.textContent = i+1;
+    td1El.textContent = userNameArray[i];
+    td2El.textContent = scoreArray[i];
+    scoreBoardEl.append(trEl, thEl, td1El, td2El);
+  }
+}
+
 
