@@ -58,7 +58,7 @@ function runQuiz() {
   scoreBoardEl.style.display = "none";
   sideBarBody.style.display = "";
   formEl.style.display = "none";
-  h2El.textContent = "First Question: " + questionsArray[0].question;
+  h2El.textContent = questionsArray[0].question;
   p1El.textContent = questionsArray[0].choices[0];
   p2El.textContent = questionsArray[0].choices[1];
   p3El.textContent = questionsArray[0].choices[2];
@@ -116,7 +116,7 @@ function finalScreen() {
       Username: inputEl.value.trim(),
       Score: userScore
     }
-    localStorage.setItem('user", JSON.stringify(userInfo));
+    localStorage.setItem("user", JSON.stringify(userInfo));
   });
 }
 // THIS FUNCTION HIDES EVERYTHING.
