@@ -8,14 +8,16 @@ var p4El = document.getElementById("p4")
 var timerEl = document.getElementById("timeLeft")
 var scoreEl = document.getElementById("currentScore")
 var startButtonEl = document.getElementById("startQuizButton")
+var formEl = document.getElementById("userForm")
+var inputEl = document.getElementById("inputForm")
 
 // GLOBAL VARIABLES FOR SETTINGS
 var secondsLeft = 180;
 var userScore = 0;
 var questionCounter = 0;
-var userSelections = [];
+formEl.style.display = "none";
 
-
+// AN ARRAY WITH AN OBJECT IN IT. FOR EASILY DETERMINING CORRECTNESS.
 var questions = [{
   question: "What is 2*5?",
   choices: [2, 5, 10, 15, 20],
@@ -38,21 +40,24 @@ var questions = [{
   correctAnswer: 4
 }];
 
-startButtonEl.addEventListener("click", function () {
-  startButtonEl.style.display = "none"
-  h2El.textContent = "First Question: "
+// THIS FIRES RUNQUIZ AT THE MOMENT
+startButtonEl.addEventListener("click", runQuiz)
+
+// THIS FUNCTION STARTS THE QUIZ
+function runQuiz() {
+  startTimer();
+  startButtonEl.style.display = "none";
+  formEl.style.display = "none";
+  h2El.textContent = "First Question: " + getQuestions[1];
   p1El.textContent = "This is the right answer.";
   p2El.textContent = "This is the wrong answer.";
   p3El.textContent = "This is the wrong answer.";
   p4El.textContent = "This is the wrong answer.";
-  quizBody.appendChild(h2El);
-  quizBody.appendChild(p1El);
-  quizBody.appendChild(p2El);
-  quizBody.appendChild(p3El);
-  quizBody.appendChild(p4El);
+  quizBody.prepend(h2El,p1El,p2El, p3El, p4El);
+
   p1El.addEventListener("click", function () {
     alert("This is the right answer"); //PLACEHOLDER
-    updateScore()
+    updateScore(5)
     console.log(userScore)
     return userScore
   });
@@ -71,36 +76,50 @@ startButtonEl.addEventListener("click", function () {
     secondsLeft = secondsLeft - 5;
     console.log(secondsLeft)
   });
-})
-
-
-// THIS FUNCTION HIDES CODE. NEEDS REPURPOSING TO ENDING SCREEN.
-function clearScreen() {
-  h2El.style.display = "none"
-  p1El.style.display = "none"
-  p2El.style.display = "none"
-  p3El.style.display = "none"
-  p4El.style.display = "none"
-  startButtonEl.style.display = ""
+  return
 }
 
-// THIS FUNCTION UPDATES THE SCORE
-function updateScore() {
-  userScore++;
+// THIS REDUCES IT DOWN TO A SINGLE ARRAY. TESTING.
+var getQuestions = questions.map(function(item) {
+return item['question']
+})
+
+// THIS FUNCTION UPDATES THE SCORE.
+function updateScore(add5) {
+  userScore = userScore += add5;
   scoreEl.textContent = userScore + " Points";
 }
 
 // COUNTDOWN TIMER CODE
-function setTime() {
+function startTimer() {
   var timerInterval = setInterval(function () {
     secondsLeft--;
     timerEl.textContent = secondsLeft + " Seconds";
-
+    
     if (secondsLeft === 0) {
       clearInterval(timerInterval);
       clearScreen();
     }
-
+    
   }, 1000);
 }
-setTime();
+
+// THIS FUNCTION HIDES CODE. NEEDS REPURPOSING TO ENDING SCREEN.
+function clearScreen() {
+  h2El.textContent = "Finished!"
+  p1El.textContent = ""
+  p2El.textContent = ""
+  p3El.textContent = ""
+  p4El.textContent = "Enter your username below"
+  quizBody.prepend(h2El,p1El,p2El, p3El, p4El);
+  formEl.style.display = "block";
+  formEl.addEventListener("submit", function(event) {
+    event.preventDefault();
+    var userName = inputEl.value;
+    var userName = JSON.stringify(userName);
+    window.localStorage.setItem('name', userName);
+    var userScore = JSON.stringify(userScore);
+    window.localStorage.setItem('score', userScore)
+  });
+}
+
