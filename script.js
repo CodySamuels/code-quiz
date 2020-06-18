@@ -100,11 +100,11 @@ function startTimer() {
 // THIS FUNCTION IS FOR THE GAMEOVER SCREEN.
 function finalScreen() {
   formEl.style.display = "";
-  h2El.textContent = "Finished!"
+  h2El.textContent = "Enter your username!"
   p1El.textContent = ""
   p2El.textContent = ""
   p3El.textContent = ""
-  p4El.textContent = "Enter your username below."
+  p4El.textContent = ""
   formEl.addEventListener("submit", function (event) {
     event.preventDefault();
     var userInfo = {
@@ -162,6 +162,7 @@ p1El.addEventListener("click", function (event) {
     updateScore(5);
   } else {
     p1El.textContent = "Incorrect."
+    secondsLeft =-5;
   }
 });
 
@@ -170,6 +171,7 @@ p2El.addEventListener("click", function (event) {
     updateScore(5);
   } else {
     p2El.textContent = "Incorrect."
+    secondsLeft =-5;
   }
 });
 
@@ -178,6 +180,7 @@ p3El.addEventListener("click", function (event) {
     updateScore(5);
   } else {
     p3El.textContent = "Incorrect."
+    secondsLeft =-5;
   }
 });
 
@@ -186,6 +189,7 @@ p4El.addEventListener("click", function (event) {
     updateScore(5);
   } else {
     p4El.textContent = "Incorrect."
+    secondsLeft =-5;
   }
 
   // formEl.addEventListener("submit", function (event) {
