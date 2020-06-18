@@ -162,7 +162,7 @@ p1El.addEventListener("click", function (event) {
     updateScore(5);
   } else {
     p1El.textContent = "Incorrect."
-    secondsLeft =-5;
+    secondsLeft = secondsLeft -5;
   }
 });
 
@@ -171,7 +171,7 @@ p2El.addEventListener("click", function (event) {
     updateScore(5);
   } else {
     p2El.textContent = "Incorrect."
-    secondsLeft =-5;
+    secondsLeft = secondsLeft -5;
   }
 });
 
@@ -180,7 +180,7 @@ p3El.addEventListener("click", function (event) {
     updateScore(5);
   } else {
     p3El.textContent = "Incorrect."
-    secondsLeft =-5;
+    secondsLeft = secondsLeft -5;
   }
 });
 
@@ -189,7 +189,7 @@ p4El.addEventListener("click", function (event) {
     updateScore(5);
   } else {
     p4El.textContent = "Incorrect."
-    secondsLeft =-5;
+    secondsLeft = secondsLeft -5;
   }
 
   // formEl.addEventListener("submit", function (event) {
