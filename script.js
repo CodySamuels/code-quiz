@@ -110,12 +110,13 @@ function finalScreen() {
     var userInfo = {
       Username: inputEl.value,
       Score: userScore
-    }
-    userArray.push(userInfo)
-
+    };
+    userArray.push(userInfo);
     localStorage.setItem("user", JSON.stringify(userArray));
+    scoreBoardScreen();
   });
 }
+
 // THIS FUNCTION HIDES EVERYTHING.
 function clearScreen() {
   formEl.style.display = "none";
@@ -123,28 +124,19 @@ function clearScreen() {
   sideBarBody.style.display = "none";
   scoreBoardEl.style.display = "none";
   formEl.style.display="none";
-  
 }
-// THIS FUNCTION RESETS THE GAME TO DEFAULT.
-function reset() {
+
+// THIS IS THE SCOREBOARD SCREEN. THIS NEEDS A LOT OF WORK. 
+function scoreBoardScreen() {
   h2El.textContent = "";
   p1El.textContent = "";
   p2El.textContent = "";
   p3El.textContent = "";
   p4El.textContent = "";
-  secondsLeft = 180;
-  userScore = 0;
-  questionCounter = 0;
-  correctAnswer = "";
-  // p1El.removeEventListener("click", function (event) {});
-  // p2El.removeEventListener("click", function (event) {});
-  // p3El.removeEventListener("click", function (event) {});
-  // p4El.removeEventListener("click", function (event) {});
-}
-
-// THIS IS THE SCOREBOARD SCREEN. THIS NEEDS A LOT OF WORK. 
-function scoreBoardScreen() {
   scoreBoardEl.style.display = "";
+  formEl.style.display="none";
+  sideBarBody.style.display="none";
+  startButtonEl.style.display="none";
   for (let i = 0; i <= userArray.length; i++) {
     trEl = document.createElement("tr");
     thEl = document.createElement("th");
@@ -191,9 +183,4 @@ p4El.addEventListener("click", function (event) {
     p4El.textContent = "Incorrect."
     secondsLeft = secondsLeft -5;
   }
-
-  // formEl.addEventListener("submit", function (event) {
-  //   event.preventDefault();
-  //   userNameValue = inputEl.value
-  // });
 })
