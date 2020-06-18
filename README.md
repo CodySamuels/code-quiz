@@ -1,6 +1,9 @@
-# 04 Web APIs: Code Quiz
+# Coding Quiz! 
 
-As you proceed in your career as a web developer, you will probably be asked to complete a coding assessment, which is typically a combination of multiple-choice questions and interactive challenges. Build a timed code quiz with multiple-choice questions. This app will run in the browser and feature dynamically updated HTML and CSS powered by your JavaScript code. It will also feature a clean and polished user interface and be responsive, ensuring that it adapts to multiple screen sizes.
+## Github Links
+https://github.com/CodySamuels/code-quiz
+
+https://codysamuels.github.io/code-quiz/
 
 ## User Story
 
@@ -26,20 +29,44 @@ WHEN the game is over
 THEN I can save my initials and score
 ```
 
-The following animation demonstrates the application functionality:
+## Introduction
 
-![code quiz](./Assets/04-web-apis-homework-demo.gif)
+The deployed application is short multiple choice quiz. The HTML designed to be mobile-friendly.
+The start button launches the quiz portion. The quiz has a knock out function, which removes an option from the quiz whenever the wrong selection is made.
+Clicking the right answer will progress the quiz to the next question. 
 
-### Review
-
-You are required to submit the following for review:
-
-* The URL of the functional, deployed application.
-
-* The URL of the GitHub repository. Give the repository a unique name and include a README describing the project.
-
-- - -
-© 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
+Once the user answers the final quest, it advances to a "final" screen, where they input their desired username for the scoreboard. Their final score is based off how much time was used. The application captures the user data, and advances to the scoreboard where their score and username is displayed.
 
 
-Coding Quiz! 
+
+## Known Issues
+
+The timer starts on page launch. If the user doesn't start the quiz, the form will become unhidden, and will error the quiz.
+
+There's an error in the javascript when it goes to populate the scoreboard. It registers an undefined, but will populate the scoreboard correctly.
+
+## Screenshots
+![code quiz](./Assets/ss1.png)
+
+Start screen. with functioning button that launches the quiz.
+***
+
+
+
+
+
+![code quiz](./Assets/ss2.png)
+
+Screenshot of the quiz in progress. Showcases the "incorrect" knockout option.
+***
+
+
+
+
+
+
+
+![code quiz](./Assets/ss3.png)
+
+Scoreboard populated with locally stored data.
+***
