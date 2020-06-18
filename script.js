@@ -25,29 +25,26 @@ var timerInterval = setInterval(startTimer, 1000);
 
 // AN ARRAY WITH AN OBJECTS IN IT. FOR EASILY DETERMINING CORRECTNESS.
 var questionsArray = [{
-  question: "What is 2+2?", //PLACEHOLDER QUESTION
-  choices: ["4", "2", "6", "8"], //PLACEHOLDER ANSWERS
-  correctAnswer: "4"          //PLACEHOLDER CORRECT
+  question: "What does NaN mean?",
+  choices: ["A delicious flatbread", "Not available now", "Not-A-Number", "Negative alpha numeral"],
+  correctAnswer: "Not-A-Number"
 }, {
-  question: "What is 2+3?",
-  choices: ["2", "5", "6", "8",],
-  correctAnswer: "5"
+  question: "The cashtag is used in which of the following JavaScript library?",
+  choices: ["jQuery", "Google Ductape", "Two.js", "Bootstrap",],
+  correctAnswer: "jQuery"
 }, {
-  question: "What is 2+4?",
-  choices: ["2", "4", "6", "8",],
-  correctAnswer: "6"
+  question: "Which of the following data structures is for storing whether a variable is true or false?",
+  choices: ["Symbol", "String", "Number", "Boolean",],
+  correctAnswer: "Boolean"
 }, {
-  question: "What is 2+5?",
-  choices: ["2", "4", "6", "7",],
-  correctAnswer: "7"
+  question: "Where is JavaScript executed?",
+  choices: ["On a dedicated server", "In the cloud", "Client-side", "None of the above",],
+  correctAnswer: "Client-side"
 }, {
-  question: "What is 2+6?",
-  choices: ["2", "4", "6", "8",],
-  correctAnswer: "8"
+  question: "How does JavaScript store dates in the date object?",
+  choices: ["Number of days since the year 2000", "By referencing Greenwich.api", "The number of miliseconds since January 1st, 1970", "None of the above",],
+  correctAnswer: "The number of miliseconds since January 1st, 1970"
 }];
-
-// THIS FIRES RUNQUIZ AT THE MOMENT.
-startButtonEl.addEventListener("click", runQuiz)
 
 // THIS FUNCTION STARTS THE QUIZ.
 function runQuiz() {
@@ -138,6 +135,8 @@ function scoreBoardScreen() {
 }
 
 // EVENT LISTENERS.
+startButtonEl.addEventListener("click", runQuiz)
+
 p1El.addEventListener("click", function (event) {
   if (event.target.textContent === questionsArray[questionCounter].correctAnswer) {
     updateScore(5);
