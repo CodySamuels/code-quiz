@@ -55,7 +55,7 @@ function runQuiz() {
   scoreBoardEl.style.display = "none";
   sideBarBody.style.display = "";
   formEl.style.display = "none";
-  startTimer()
+  secondsLeft=180;
   nextQuestion()
 }
 
@@ -91,7 +91,6 @@ function startTimer() {
   }
 }
 
-
 // THIS FUNCTION IS FOR THE GAMEOVER SCREEN.
 function finalScreen() {
   clearInterval(timerInterval);
@@ -116,16 +115,7 @@ function finalScreen() {
   });
 }
 
-// THIS FUNCTION HIDES EVERYTHING.
-function clearScreen() {
-  formEl.style.display = "none";
-  startButtonEl.style.display = "none";
-  sideBarBody.style.display = "none";
-  scoreBoardEl.style.display = "none";
-  formEl.style.display = "none";
-}
-
-// THIS IS THE SCOREBOARD SCREEN. THIS NEEDS A LOT OF WORK. 
+// THIS IS THE SCOREBOARD SCREEN.
 function scoreBoardScreen() {
   h2El.textContent = "";
   p1El.textContent = "";
