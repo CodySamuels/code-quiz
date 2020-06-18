@@ -18,7 +18,8 @@ var secondsLeft = 180;
 var userScore = 0;
 var questionCounter = 0;
 var correctAnswer = "";
-var userArray = JSON.parse(localStorage.getItem("userInfo")) || []; 
+var usernameValue = "";
+var userArray = JSON.parse(localStorage.getItem("user")) || []; 
 
 // DISPLAY VARIABLES ON RUN. WILL BE PLACED IN HTML BY FINAL DRAFT.
 formEl.style.display = "none";
@@ -28,7 +29,7 @@ sideBarBody.style.display = "none";
 // AN ARRAY WITH AN OBJECTS IN IT. FOR EASILY DETERMINING CORRECTNESS.
 var questionsArray = [{
   question: "What is 2+2?", //PLACEHOLDER QUESTION
-  choices: ["4", "2", "6", "8",], //PLACEHOLDER ANSWERS
+  choices: ["4", "2", "6", "8"], //PLACEHOLDER ANSWERS
   correctAnswer: "4"          //PLACEHOLDER CORRECT
 }, {
   question: "What is 2+3?",
@@ -68,46 +69,12 @@ function nextQuestion() {
   p2El.textContent = questionsArray[questionCounter].choices[1];
   p3El.textContent = questionsArray[questionCounter].choices[2];
   p4El.textContent = questionsArray[questionCounter].choices[3];
-
-  // if (questionsArray.choices[questionCounter] === questionsArray[questionCounter].correctAnswer) {
-  //   this.addEventListener("click", function () {
-  //     updateScore(5);
-  //     questionCounter++;
-  //     nextQuestion();
-  //   })
-  // } else {
-  //   this.addEventListener("click", function () {
-  //   this.textContent = "Incorrect."
-  //   secondsLeft = secondsLeft - 5;
-  // })
-// }
-  // p1El.addEventListener("click", function () {
-  //   alert("This is the right answer"); //PLACEHOLDER
-  //   updateScore(5)
-
-  // });
-
-
-  // });
-  // p3El.addEventListener("click", function () {
-  //   p3El.textContent = "Incorrect."
-  //   secondsLeft = secondsLeft - 5;
-
-  // });
-  // p4El.addEventListener("click", function () {
-  //   p4El.textContent = "Incorrect."
-  //   secondsLeft = secondsLeft - 5;
-
-  // });
-  // questionCounter++;
 }
 
 // THIS FUNCTION UPDATES THE SCORE.
 function updateScore(add5) {
   userScore += add5;
   scoreEl.textContent = userScore + " Points";
-  console.log(questionCounter);
-  console.log(questionsArray.length);
   if (questionCounter >= questionsArray.length -1) {
     finalScreen();
   } else {
@@ -132,7 +99,6 @@ function startTimer() {
 
 // THIS FUNCTION IS FOR THE GAMEOVER SCREEN.
 function finalScreen() {
-  // var userArray = JSON.parse(localStorage.getItem("userInfo")) || []; 
   formEl.style.display = "";
   h2El.textContent = "Finished!"
   p1El.textContent = ""
@@ -142,7 +108,7 @@ function finalScreen() {
   formEl.addEventListener("submit", function (event) {
     event.preventDefault();
     var userInfo = {
-      Username: inputEl.value.trim(),
+      Username: inputEl.value,
       Score: userScore
     }
     userArray.push(userInfo)
@@ -176,42 +142,30 @@ function reset() {
   // p4El.removeEventListener("click", function (event) {});
 }
 
-// var lastUser = JSON.parse(localStorage.getItem("user"));
-
-// THIS IS THE SCOREBOARD SCREEN. THIS NEEDS A LOT OF WORK.
-// 
-// Segment into Divs
-// 
+// THIS IS THE SCOREBOARD SCREEN. THIS NEEDS A LOT OF WORK. 
 function scoreBoardScreen() {
   scoreBoardEl.style.display = "";
-  // for (let i = 0; i <= userNameArray.length; i++) {
+  for (let i = 0; i <= userArray.length; i++) {
     trEl = document.createElement("tr");
     thEl = document.createElement("th");
     td1El = document.createElement("td");
     td2El = document.createElement("td");
-    // thEl.textContent = i;
-    td1El.textContent = lastUser.Username;
-    td2El.textContent = lastUser.Score;
+    td1El.textContent = userArray[i].Username;
+    td2El.textContent = userArray[i].Score;
     scoreBoardEl.append(trEl, thEl, td1El, td2El);
-  // }
+  }
 }
 
-// EVENT LISTENERS ADD
+// EVENT LISTENERS.
 p1El.addEventListener("click", function (event) {
-  console.log("event.target", event.target.textContent);
-  console.log("correctAnswer", questionsArray[questionCounter].correctAnswer)
   if (event.target.textContent === questionsArray[questionCounter].correctAnswer) {
     updateScore(5);
   } else {
     p1El.textContent = "Incorrect."
   }
-
-  // updateScore(5)
-  // console.log(event.target.textContent)
 });
 
 p2El.addEventListener("click", function (event) {
-  // alert("This is the right answer"); //PLACEHOLDER
   if (event.target.textContent === questionsArray[questionCounter].correctAnswer) {
     updateScore(5);
   } else {
@@ -220,7 +174,6 @@ p2El.addEventListener("click", function (event) {
 });
 
 p3El.addEventListener("click", function (event) {
-  // alert("This is the right answer"); //PLACEHOLDER
   if (event.target.textContent === questionsArray[questionCounter].correctAnswer) {
     updateScore(5);
   } else {
@@ -229,37 +182,14 @@ p3El.addEventListener("click", function (event) {
 });
 
 p4El.addEventListener("click", function (event) {
-  // alert("This is the right answer"); //PLACEHOLDER
   if (event.target.textContent === questionsArray[questionCounter].correctAnswer) {
     updateScore(5);
   } else {
     p4El.textContent = "Incorrect."
   }
-});
-// p2El.addEventListener("click", function (event) {
-//   p2El.textContent = "Incorrect."
-//   secondsLeft = secondsLeft - 5;
-//   console.log(event.target)
-// });
-// p3El.addEventListener("click", function (event) {
-//   p3El.textContent = "Incorrect."
-//   secondsLeft = secondsLeft - 5;
-//   console.log(event.target)
-// });
-// p4El.addEventListener("click", function (event) {
-//   p4El.textContent = "Incorrect."
-//   secondsLeft = secondsLeft - 5;
-//   console.log(event.target)
-// });
 
-// if (questionsArray.choices[questionCounter] === questionsArray[questionCounter].correctAnswer) {
-//   this.addEventListener("click", function () {
-//     updateScore(5);
-//     questionCounter++;
-//     nextQuestion();
-//   })
-// } else {
-//   this.addEventListener("click", function () {
-//   this.textContent = "Incorrect."
-//   secondsLeft = secondsLeft - 5;
-// })
+  // formEl.addEventListener("submit", function (event) {
+  //   event.preventDefault();
+  //   userNameValue = inputEl.value
+  // });
+})
